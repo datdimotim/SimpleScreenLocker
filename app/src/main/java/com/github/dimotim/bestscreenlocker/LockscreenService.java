@@ -65,16 +65,8 @@ public class LockscreenService extends Service {
     }
 
     private void initKeyguardService() {
-        if (null != mKeyManager) {
-            mKeyManager = null;
-        }
         mKeyManager = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
-        if (null != mKeyManager) {
-            if (null != mKeyLock) {
-                mKeyLock = null;
-            }
-            mKeyLock = mKeyManager.newKeyguardLock(KEYGUARD_SERVICE);
-        }
+        mKeyLock = mKeyManager.newKeyguardLock(KEYGUARD_SERVICE);
     }
 
     private void setStandardKeyguardState(boolean isStart) {
