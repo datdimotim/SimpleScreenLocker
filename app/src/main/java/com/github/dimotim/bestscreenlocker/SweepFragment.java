@@ -105,6 +105,7 @@ class SweepFragment{
     private int initYTteshold(){
         Point size=new Point();
         windowManager.getDefaultDisplay().getSize(size);
+        Log.i(TAG,"treshold="+size.y*9/10);
         return size.y*9/10;
     }
 
