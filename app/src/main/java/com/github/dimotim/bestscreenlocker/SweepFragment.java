@@ -65,16 +65,20 @@ class SweepFragment{
     }
 
     private class OnTouchListener implements View.OnTouchListener{
+        boolean firstInvoke=true;
         float dX,dY;
         float xs,ys;
 
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             if(event.getAction()==MotionEvent.ACTION_DOWN){
-                dX = v.getX() - event.getRawX();
-                dY = v.getY() - event.getRawY();
-                xs=v.getX();
-                ys=v.getY();
+                if(firstInvoke) {
+                    firstInvoke = false;
+                    xs = v.getX();
+                    ys = v.getY();
+                }
+                dX = xs - event.getRawX();
+                dY = ys - event.getRawY();
                 v.animate().scaleX(1.5f).scaleY(1.5f).setDuration(0).start();
                 return true;
             }
@@ -87,10 +91,10 @@ class SweepFragment{
                 return true;
             }
 
-            if(event.getAction()== MotionEvent.ACTION_UP||event.getAction()==MotionEvent.ACTION_CANCEL){
+            if(event.getAction()==MotionEvent.ACTION_UP||event.getAction()==MotionEvent.ACTION_CANCEL){
                 int y_cord = (int) event.getRawY();
 
-                if(y_cord>yTreshold){
+                if(y_cord>yTreshold) {
                     v.animate().x(xs).y(ys).scaleX(1).scaleY(1).setDuration(0).start();
                     hide();
                     return true;
